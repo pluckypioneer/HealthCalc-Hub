@@ -137,7 +137,7 @@ HealthCalc Hub/
 
 ## 📝 许可证
 
-MIT License - 详见 LICENSE 文件
+[MIT License](LICENSE) - 详见 LICENSE 文件
 
 ## 🚀 贡献
 
