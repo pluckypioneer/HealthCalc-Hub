@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-HealthCalc Hub is a fully client-side health calculator that provides over 50 professional medical calculation tools. All computations run locally in the browser—no external API calls—preserving user privacy and keeping data on the user's device.
+HealthCalc Hub is a fully client-side health calculator that provides over 20 professional medical calculation tools. All computations run locally in the browser—no external API calls—preserving user privacy and keeping data on the user's device.
 
 ## Key Features
 
@@ -107,4 +107,4 @@ Contributions are welcome. Open issues or submit pull requests. For local testin
 
 ## License
 
-MIT License
+[MIT License](LICENSE)
