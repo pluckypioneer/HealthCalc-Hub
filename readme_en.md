@@ -107,4 +107,4 @@ Contributions are welcome. Open issues or submit pull requests. For local testin
 
 ## License
 
-MIT License
+[MIT License](LICENSE)
