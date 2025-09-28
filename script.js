@@ -242,6 +242,127 @@ const HealthCalculator = {
         };
     }
 };
+        
+// 全局用户档案管理
+const UserProfile = {
+    // 获取用户档案
+    get: function() {
+        const saved = localStorage.getItem('healthcalc_profile');
+        return saved ? JSON.parse(saved) : {};
+    },
+
+    // 保存用户档案
+    save: function(data) {
+        const profile = { ...this.get(), ...data };
+        localStorage.setItem('healthcalc_profile', JSON.stringify(profile));
+        this.updateStatus();
+        return profile;
+    },
+
+    // 清除用户档案
+    clear: function() {
+        localStorage.removeItem('healthcalc_profile');
+        this.updateStatus();
+    },
+
+    // 更新档案状态显示
+    updateStatus: function() {
+        const profile = this.get();
+        const statusDiv = document.getElementById('profile-status');
+        if (!statusDiv) return;
+
+        const hasData = profile.age && profile.gender && profile.height && profile.weight;
+        
+        if (hasData) {
+            const bmi = HealthCalculator.calculateBMI(profile.weight, profile.height);
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <h6><i class="fas fa-check-circle me-2"></i>档案已保存</h6>
+                    <div class="row text-center">
+                        <div class="col-3"><small>年龄</small><div class="fw-bold">${profile.age}</div></div>
+                        <div class="col-3"><small>性别</small><div class="fw-bold">${profile.gender === 'male' ? '男性' : '女性'}</div></div>
+                        <div class="col-3"><small>BMI</small><div class="fw-bold text-primary">${bmi.toFixed(1)}</div></div>
+                        <div class="col-3"><small>状态</small><div class="fw-bold text-success">自动填充已启用</div></div>
+                    </div>
+                </div>
+            `;
+        } else {
+            statusDiv.innerHTML = `
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    填写档案信息后，所有计算器将自动填充您的数据，提高使用效率。
+                </div>
+            `;
+        }
+    },
+
+    // 加载演示数据
+    loadDemo: function() {
+        const demoData = {
+            age: 28, gender: 'male', height: 175, weight: 70, waist: 80, activity: 'moderately_active'
+        };
+        
+        Object.keys(demoData).forEach(key => {
+            const element = document.getElementById(`profile-${key}`);
+            if (element) element.value = demoData[key];
+        });
+        
+        this.save(demoData);
+        showNotification('演示数据已加载', 'success');
+    }
+};
+
+// 自动填充表单函数
+function autoFillForm(formType) {
+    const profile = UserProfile.get();
+    
+    if (!profile.age || !profile.gender || !profile.height || !profile.weight) {
+        showNotification('请先在"个人健康档案"中填写基础信息', 'warning');
+        document.getElementById('profile-setup').scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
+    
+    const fillMappings = {
+        bmi: { 'bmi-height': profile.height, 'bmi-weight': profile.weight },
+        bodyfat: { 'bf-age': profile.age, 'bf-gender': profile.gender, 'bf-height': profile.height, 'bf-weight': profile.weight, 'bf-waist': profile.waist },
+        bmr: { 'bmr-age': profile.age, 'bmr-gender': profile.gender, 'bmr-height': profile.height, 'bmr-weight': profile.weight },
+        idealweight: { 'iw-height': profile.height, 'iw-gender': profile.gender, 'iw-current-weight': profile.weight },
+        qtc: { 'qtc-hr': 72 }, // 默认心率
+        abi: {}, // ABI需要具体的血压数据，暂无自动填充
+        sixmwt: { 'mwt-age': profile.age, 'mwt-gender': profile.gender },
+        diabetes: { 'diab-age': profile.age, 'diab-bmi': profile.height && profile.weight ? HealthCalculator.calculateBMI(profile.weight, profile.height).toFixed(1) : '' },
+        tdee: { 'tdee-age': profile.age, 'tdee-gender': profile.gender, 'tdee-height': profile.height, 'tdee-weight': profile.weight, 'tdee-activity': profile.activity },
+        maintenance: { 'mc-age': profile.age, 'mc-gender': profile.gender, 'mc-height': profile.height, 'mc-weight': profile.weight, 'mc-activity': profile.activity },
+        lbm: { 'lbm-gender': profile.gender, 'lbm-height': profile.height, 'lbm-weight': profile.weight },
+        bsa: { 'bsa-height': profile.height, 'bsa-weight': profile.weight },
+        macro: { 'macro-age': profile.age, 'macro-gender': profile.gender, 'macro-weight': profile.weight, 'macro-activity': profile.activity },
+        protein: { 'protein-weight': profile.weight, 'protein-activity': profile.activity },
+        fiber: { 'fiber-age': profile.age, 'fiber-gender': profile.gender },
+        water: { 'water-weight': profile.weight, 'water-activity': profile.activity },
+        bloodsugar: {}, // 血糖转换不需要个人数据
+        cholesterol: {}, // 胆固醇转换不需要个人数据
+        heartrate: { 'hr-age': profile.age, 'hr-resting': 60 }, // 默认静息心率60
+        convert: {} // 单位转换不需要个人数据
+    };
+    
+    const mapping = fillMappings[formType];
+    if (!mapping) return;
+    
+    let filledCount = 0;
+    Object.entries(mapping).forEach(([fieldId, value]) => {
+        const element = document.getElementById(fieldId);
+        if (element && value !== null && value !== '') {
+            element.value = value;
+            filledCount++;
+            element.style.backgroundColor = '#e3f2fd';
+            setTimeout(() => element.style.backgroundColor = '', 1000);
+        }
+    });
+    
+    if (filledCount > 0) {
+        showNotification(`已自动填充 ${filledCount} 个字段`, 'success');
+    }
+}
 
 const LANGUAGES = { en: 'English', zh: '中文' };
 let currentLanguage = 'en';
@@ -583,7 +704,7 @@ async function calculateMaintenanceCalories(event) {
         const bmr = HealthCalculator.calculateBMR(weight, height, age, gender);
         const maintenance = HealthCalculator.calculateMaintenanceCalories(bmr, activity);
         
-        showSuccess('maintenance-result', `<div class="result-container status-normal"><h5>${t('Your Maintenance Calories Result')}:</h5><p class="result-value">${maintenance.toFixed(0)} <small>cal/day</small></p><p class="result-interpretation">${currentLanguage === 'zh' ? `您的维持体重所需的每日热量为 ${maintenance.toFixed(0)} 千卡。若想减重，可在此基础上每日减少300-500千卡。若想增重，可每日增加300-500千卡。` : `Your maintenance calories are ${maintenance.toFixed(0)} calories per day. For weight loss, reduce by 300-500 calories daily. For weight gain, add 300-500 calories daily.`}</p><div class="mt-3"><div class="row text-center"><div class="col-4"><small class="text-success"><strong>${currentLanguage === 'zh' ? '减重' : 'Weight Loss'}</strong><br>${(maintenance - 400).toFixed(0)} cal</small></div><div class="col-4"><small class="text-primary"><strong>${currentLanguage === 'zh' ? '维持' : 'Maintenance'}</strong><br>${maintenance.toFixed(0)} cal</small></div><div class="col-4"><small class="text-warning"><strong>${currentLanguage === 'zh' ? '增重' : 'Weight Gain'}</strong><br>${(maintenance + 400).toFixed(0)} cal</small></div></div></div></div>`);
+        showSuccess('maintenance-result', `<div class="result-container status-normal"><h5>${t('Your Maintenance Calories Result')}:</h5><p class="result-value">${maintenance.toFixed(0)} <small>cal/day</small></p><p class="result-interpretation">${currentLanguage === 'zh' ? `您的维持体重所需的每日热量为 ${maintenance.toFixed(0)} 千卡。若想减重，可在此基础上每日减少300-500千卡。若想增重，可每日增加300-500千卡。` : `Your maintenance calories are ${maintenance.toFixed(0)} calories per day. For weight loss, reduce by 300-500 calories daily. For weight gain, add 300-500 calories daily.`}</p><div class="mt-3"><div class="row text-center"><div class="col-4"><small class="text-success"><strong>${currentLanguage === 'zh' ? '减重' : 'Weight Loss'}</strong><br>${(maintenance - 400).toFixed(0)} cal</small></div><div class="col-4"><small class="text-primary"><strong>${currentLanguage === 'zh' ? '维持' : 'Maintenance'}</strong><br>${maintenance.toFixed(0)} cal</small></div><div class="col-4"><small class="text-warning"><strong>${currentLanguage === 'zh' ? '增重' : 'Weight Gain'}</strong><br>${(maintenance + 400).toFixed(0)} cal</small></div></div></div>`);
     }, 300);
 }
 
@@ -849,6 +970,9 @@ function showNotification(message, type = 'info') {
 function init() {
     updateLanguage();
     
+    // 初始化用户档案状态
+    UserProfile.updateStatus();
+    
     // 绑定事件监听器
     const eventBindings = [
         ['bmi-form', calculateBMI],
@@ -870,7 +994,8 @@ function init() {
         ['blood-sugar-form', convertBloodSugar],
         ['cholesterol-form', convertCholesterol],
         ['heart-rate-form', calculateHeartRateZones],
-        ['convert-form', convertUnits]
+        ['convert-form', convertUnits],
+        ['profile-form', saveProfile]
     ];
     
     eventBindings.forEach(([formId, handler]) => {
@@ -885,8 +1010,43 @@ function init() {
     const convertType = document.getElementById('convert-type');
     if (convertType) convertType.addEventListener('change', handleUnitTypeChange);
     
+    const clearProfile = document.getElementById('clear-profile');
+    if (clearProfile) clearProfile.addEventListener('click', clearUserProfile);
+    
+    const autoFillDemo = document.getElementById('auto-fill-demo');
+    if (autoFillDemo) autoFillDemo.addEventListener('click', () => UserProfile.loadDemo());
+    
     // 初始化单位转换选项
     handleUnitTypeChange();
+}
+
+// 档案管理函数
+function saveProfile(event) {
+    event.preventDefault();
+    
+    const profileData = {
+        age: parseInt(document.getElementById('profile-age').value) || null,
+        gender: document.getElementById('profile-gender').value || '',
+        height: parseFloat(document.getElementById('profile-height').value) || null,
+        weight: parseFloat(document.getElementById('profile-weight').value) || null,
+        waist: parseFloat(document.getElementById('profile-waist').value) || null,
+        activity: document.getElementById('profile-activity').value || ''
+    };
+    
+    UserProfile.save(profileData);
+    showNotification('个人档案已保存', 'success');
+}
+
+function clearUserProfile() {
+    // 清除表单
+    ['age', 'gender', 'height', 'weight', 'waist', 'activity'].forEach(field => {
+        const element = document.getElementById(`profile-${field}`);
+        if (element) element.value = '';
+    });
+    
+    // 清除存储的数据
+    UserProfile.clear();
+    showNotification('档案已清除', 'info');
 }
 
 // 当页面加载完成时初始化

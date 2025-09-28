@@ -301,3 +301,88 @@ footer a:hover {
         opacity: 1;
     }
 }
+
+/* Profile Setup Section Styles */
+#profile-setup {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+#profile-setup .card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+#profile-setup .card-header {
+    background: linear-gradient(135deg, var(--primary-color), #7209b7);
+    padding: 2rem;
+    border-bottom: none;
+}
+
+#profile-setup .card-body {
+    padding: 2rem;
+}
+
+#profile-setup .form-control, 
+#profile-setup .form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#profile-setup .form-control:focus, 
+#profile-setup .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.1);
+}
+
+#profile-setup .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.75rem;
+}
+
+#profile-setup .btn {
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+#profile-setup .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Auto Fill Button Styles */
+.card-header .btn-outline-light:hover,
+.card-header .btn-outline-dark:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Profile Status Alert Styles */
+#profile-status .alert {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+#profile-status .alert-success {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border-left: 4px solid #28a745;
+}
+
+#profile-status .alert-info {
+    background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+    border-left: 4px solid #17a2b8;
+}
+
+/* Auto Fill Animation */
+.auto-fill-highlight {
+    background-color: #e3f2fd !important;
+    transition: background-color 1s ease;
+}

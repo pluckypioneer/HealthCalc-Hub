@@ -87,7 +87,11 @@
                                 Comprehensive health metrics calculation with 50+ medical endpoints. Get instant health insights with professional interpretations.
                             </span>
                         </p>
-                        <a href="#basic-metrics" class="btn btn-primary btn-lg">
+                        <a href="#profile-setup" class="btn btn-primary btn-lg me-3">
+                            <span data-en="Setup Profile" data-zh="设置资料">Setup Profile</span>
+                            <i class="fas fa-user-cog ms-2"></i>
+                        </a>
+                        <a href="#basic-metrics" class="btn btn-outline-primary btn-lg">
                             <span data-en="Start Calculating" data-zh="开始计算">Start Calculating</span>
                             <i class="fas fa-arrow-right ms-2"></i>
                         </a>
@@ -95,6 +99,126 @@
                     <div class="col-lg-6">
                         <div class="text-center">
                             <i class="fas fa-calculator text-primary" style="font-size: 8rem; opacity: 0.7;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Setup Section -->
+        <section id="profile-setup" class="py-5 bg-gradient">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card shadow-lg border-0">
+                            <div class="card-header bg-primary text-white text-center">
+                                <h3 class="mb-0">
+                                    <i class="fas fa-user-cog me-2"></i>
+                                    <span data-en="Personal Health Profile" data-zh="个人健康档案">Personal Health Profile</span>
+                                </h3>
+                                <p class="mb-0 mt-2 opacity-75">
+                                    <span data-en="Fill once, use everywhere - Your data will auto-fill in all calculators" data-zh="一次填写，处处使用 - 您的数据将自动填充到所有计算器中">Fill once, use everywhere - Your data will auto-fill in all calculators</span>
+                                </p>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="profile-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-age" class="form-label">
+                                                <i class="fas fa-birthday-cake text-primary me-1"></i>
+                                                <span data-en="Age" data-zh="年龄">Age</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="profile-age" min="10" max="120" placeholder="25">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-gender" class="form-label">
+                                                <i class="fas fa-venus-mars text-primary me-1"></i>
+                                                <span data-en="Gender" data-zh="性别">Gender</span>
+                                            </label>
+                                            <select class="form-select" id="profile-gender">
+                                                <option value="">
+                                                    <span data-en="Select Gender" data-zh="选择性别">Select Gender</span>
+                                                </option>
+                                                <option value="male">
+                                                    <span data-en="Male" data-zh="男性">Male</span>
+                                                </option>
+                                                <option value="female">
+                                                    <span data-en="Female" data-zh="女性">Female</span>
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-height" class="form-label">
+                                                <i class="fas fa-ruler-vertical text-primary me-1"></i>
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="profile-height" min="100" max="250" step="0.1" placeholder="170">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-weight" class="form-label">
+                                                <i class="fas fa-weight text-primary me-1"></i>
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="profile-weight" min="30" max="300" step="0.1" placeholder="70">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-waist" class="form-label">
+                                                <i class="fas fa-circle text-primary me-1"></i>
+                                                <span data-en="Waist Circumference (cm)" data-zh="腰围 (cm)">Waist Circumference (cm)</span>
+                                                <small class="text-muted ms-1">(<span data-en="Optional" data-zh="可选">Optional</span>)</small>
+                                            </label>
+                                            <input type="number" class="form-control" id="profile-waist" min="50" max="150" step="0.1" placeholder="80">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="profile-activity" class="form-label">
+                                                <i class="fas fa-running text-primary me-1"></i>
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span>
+                                            </label>
+                                            <select class="form-select" id="profile-activity">
+                                                <option value="">
+                                                    <span data-en="Select Activity Level" data-zh="选择活动水平">Select Activity Level</span>
+                                                </option>
+                                                <option value="sedentary">
+                                                    <span data-en="Sedentary (little/no exercise)" data-zh="久坐型（很少运动）">Sedentary (little/no exercise)</span>
+                                                </option>
+                                                <option value="lightly_active">
+                                                    <span data-en="Lightly Active (light exercise 1-3 days/week)" data-zh="轻度活跃（轻度运动1-3天/周）">Lightly Active (light exercise 1-3 days/week)</span>
+                                                </option>
+                                                <option value="moderately_active">
+                                                    <span data-en="Moderately Active (moderate exercise 3-5 days/week)" data-zh="中度活跃（中度运动3-5天/周）">Moderately Active (moderate exercise 3-5 days/week)</span>
+                                                </option>
+                                                <option value="very_active">
+                                                    <span data-en="Very Active (hard exercise 6-7 days/week)" data-zh="高度活跃（高强度运动6-7天/周）">Very Active (hard exercise 6-7 days/week)</span>
+                                                </option>
+                                                <option value="extremely_active">
+                                                    <span data-en="Extremely Active (very hard exercise, physical job)" data-zh="极度活跃（高强度运动+体力工作）">Extremely Active (very hard exercise, physical job)</span>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                                <button type="submit" class="btn btn-primary btn-lg px-4">
+                                                    <i class="fas fa-save me-2"></i>
+                                                    <span data-en="Save Profile" data-zh="保存档案">Save Profile</span>
+                                                </button>
+                                                <button type="button" class="btn btn-outline-secondary btn-lg px-4" id="clear-profile">
+                                                    <i class="fas fa-trash me-2"></i>
+                                                    <span data-en="Clear" data-zh="清除">Clear</span>
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-lg px-4" id="auto-fill-demo">
+                                                    <i class="fas fa-magic me-2"></i>
+                                                    <span data-en="Demo Data" data-zh="演示数据">Demo Data</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                                <div id="profile-status" class="mt-3"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,11 +240,15 @@
                     <!-- BMI Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-weight me-2"></i>
                                     <span data-en="BMI Calculator" data-zh="BMI计算器">BMI Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('bmi')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="bmi-form">
@@ -151,11 +279,15 @@
                     <!-- Body Fat Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-success text-white">
+                            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-percentage me-2"></i>
                                     <span data-en="Body Fat Percentage" data-zh="体脂率计算">Body Fat Percentage</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('bodyfat')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="bodyfat-form">
@@ -208,11 +340,15 @@
                     <!-- BMR Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-warning text-dark">
+                            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-fire me-2"></i>
                                     <span data-en="BMR Calculator" data-zh="基础代谢计算">BMR Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-dark" onclick="autoFillForm('bmr')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="bmr-form">
@@ -259,11 +395,15 @@
                     <!-- Ideal Weight Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-target me-2"></i>
                                     <span data-en="Ideal Weight" data-zh="理想体重">Ideal Weight</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('idealweight')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="ideal-weight-form">
@@ -319,11 +459,15 @@
                     <!-- QTc Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-danger text-white">
+                            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-heartbeat me-2"></i>
                                     <span data-en="QTc Calculator" data-zh="QTc间期计算">QTc Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('qtc')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="qtc-form">
@@ -354,11 +498,15 @@
                     <!-- ABI Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-warning text-dark">
+                            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-stethoscope me-2"></i>
                                     <span data-en="ABI Calculator" data-zh="踝肱指数计算">ABI Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-dark" onclick="autoFillForm('abi')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="abi-form">
@@ -389,11 +537,15 @@
                     <!-- 6MWT Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-walking me-2"></i>
                                     <span data-en="6-Minute Walk Test" data-zh="6分钟步行测试">6-Minute Walk Test</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('sixmwt')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="6mwt-form">
@@ -434,11 +586,15 @@
                     <!-- Diabetes Risk Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-secondary text-white">
+                            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-chart-line me-2"></i>
                                     <span data-en="Diabetes Risk" data-zh="糖尿病风险">Diabetes Risk</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('diabetes')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="diabetes-form">
@@ -499,11 +655,15 @@
                     <!-- TDEE Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-warning text-dark">
+                            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-running me-2"></i>
                                     <span data-en="TDEE Calculator" data-zh="每日总能耗计算">TDEE Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-dark" onclick="autoFillForm('tdee')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="tdee-form">
@@ -563,11 +723,15 @@
                     <!-- Maintenance Calories Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-balance-scale-right me-2"></i>
                                     <span data-en="Maintenance Calories" data-zh="维持热量计算">Maintenance Calories</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('maintenance')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="maintenance-form">
@@ -627,11 +791,15 @@
                     <!-- LBM Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-success text-white">
+                            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-dumbbell me-2"></i>
                                     <span data-en="Lean Body Mass" data-zh="瘦体重计算">Lean Body Mass</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('lbm')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="lbm-form">
@@ -672,11 +840,15 @@
                     <!-- BSA Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-secondary text-white">
+                            <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-user-md me-2"></i>
                                     <span data-en="Body Surface Area" data-zh="体表面积计算">Body Surface Area</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('bsa')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="bsa-form">
@@ -721,11 +893,15 @@
                     <!-- Macronutrients Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-success text-white">
+                            <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-chart-pie me-2"></i>
                                     <span data-en="Macronutrients Calculator" data-zh="宏量营养素计算">Macronutrients Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('macro')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="macro-form">
@@ -790,11 +966,15 @@
                     <!-- Protein Calculator Card -->
                     <div class="col-lg-6">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-warning text-dark">
+                            <div class="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-drumstick-bite me-2"></i>
                                     <span data-en="Protein Calculator" data-zh="蛋白质计算">Protein Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-dark" onclick="autoFillForm('protein')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="protein-form">
@@ -843,11 +1023,15 @@
                     <!-- Fiber Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-leaf me-2"></i>
                                     <span data-en="Fiber Calculator" data-zh="膳食纤维计算">Fiber Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('fiber')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="fiber-form">
@@ -882,11 +1066,15 @@
                     <!-- Water Intake Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-tint me-2"></i>
                                     <span data-en="Water Intake Calculator" data-zh="水分摄入计算">Water Intake Calculator</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('water')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
                                 <form id="water-form">
@@ -1036,14 +1224,18 @@
                     <!-- Heart Rate Zone Calculator Card -->
                     <div class="col-lg-6 mt-4">
                         <div class="card h-100 shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                                 <h5 class="mb-0">
                                     <i class="fas fa-heartbeat me-2"></i>
                                     <span data-en="Heart Rate Zones" data-zh="心率区间计算">Heart Rate Zones</span>
                                 </h5>
+                                <button type="button" class="btn btn-sm btn-outline-light" onclick="autoFillForm('heartrate')">
+                                    <i class="fas fa-magic me-1"></i>
+                                    <span data-en="Auto Fill" data-zh="自动填充">Auto Fill</span>
+                                </button>
                             </div>
                             <div class="card-body">
-                                <form id="hr-zone-form">
+                                <form id="heart-rate-form">
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="hr-age" class="form-label">
@@ -1063,7 +1255,7 @@
                                         <span data-en="Calculate Zones" data-zh="计算区间">Calculate Zones</span>
                                     </button>
                                 </form>
-                                <div id="hr-zone-result" class="mt-3"></div>
+                                <div id="heart-rate-result" class="mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -1078,29 +1270,29 @@
                                 </h5>
                             </div>
                             <div class="card-body">
-                                <form id="unit-converter-form">
+                                <form id="convert-form">
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
-                                            <label for="conv-type" class="form-label">
+                                            <label for="convert-type" class="form-label">
                                                 <span data-en="Conversion Type" data-zh="换算类型">Conversion Type</span> *
                                             </label>
-                                            <select class="form-select" id="conv-type" required>
+                                            <select class="form-select" id="convert-type" required>
                                                 <option value="">Choose...</option>
                                                 <option value="weight" data-en="Weight" data-zh="体重">Weight</option>
                                                 <option value="height" data-en="Height" data-zh="身高">Height</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="conv-value" class="form-label">
+                                            <label for="convert-value" class="form-label">
                                                 <span data-en="Value" data-zh="数值">Value</span> *
                                             </label>
-                                            <input type="number" class="form-control" id="conv-value" min="0" step="0.1" required>
+                                            <input type="number" class="form-control" id="convert-value" min="0" step="0.1" required>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="conv-from-unit" class="form-label">
+                                            <label for="convert-from" class="form-label">
                                                 <span data-en="From Unit" data-zh="原单位">From Unit</span> *
                                             </label>
-                                            <select class="form-select" id="conv-from-unit" required>
+                                            <select class="form-select" id="convert-from" required>
                                                 <option value="">Choose...</option>
                                             </select>
                                         </div>
@@ -1110,7 +1302,7 @@
                                         <span data-en="Convert" data-zh="换算">Convert</span>
                                     </button>
                                 </form>
-                                <div id="unit-converter-result" class="mt-3"></div>
+                                <div id="convert-result" class="mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -1125,16 +1317,16 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-0">
-                        <span data-en="Data Source: Health Calculator API" data-zh="数据来源：Health Calculator API">Data Source: Health Calculator API</span>
+                        <span data-en="Open Source Project：HealthCalc-Hub" data-zh="开源项目：健康指数计算器">HealthCalc-Hub</span>
                     </p>
                     <small class="text-muted">
                         <span data-en="For health reference only, not medical advice" data-zh="仅供健康参考，不构成医疗建议">For health reference only, not medical advice</span>
                     </small>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="https://rapidapi.com/health-calculator-api/api/health-calculator-api" target="_blank" class="text-light text-decoration-none">
+                    <a href="https://github.com/pluckypioneer/HealthCalc-Hub" target="_blank" class="text-light text-decoration-none">
                         <i class="fas fa-external-link-alt me-1"></i>
-                        <span data-en="API Documentation" data-zh="API文档">API Documentation</span>
+                        <span data-en="GitHub Repository" data-zh="开源仓库链接">GitHub Repository</span>
                     </a>
                 </div>
             </div>
