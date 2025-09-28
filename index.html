@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthCalc Hub - Complete Health Calculator</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-heartbeat me-2"></i>
+                <span data-en="HealthCalc Hub" data-zh="健康计算中心">HealthCalc Hub</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#basic-metrics">
+                            <i class="fas fa-balance-scale me-1"></i>
+                            <span data-en="Basic Metrics" data-zh="基础指标">Basic Metrics</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cardiovascular">
+                            <i class="fas fa-heart me-1"></i>
+                            <span data-en="Cardiovascular" data-zh="心血管">Cardiovascular</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#metabolism">
+                            <i class="fas fa-fire me-1"></i>
+                            <span data-en="Metabolism" data-zh="代谢">Metabolism</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#nutrition">
+                            <i class="fas fa-apple-alt me-1"></i>
+                            <span data-en="Nutrition" data-zh="营养">Nutrition</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#converter">
+                            <i class="fas fa-exchange-alt me-1"></i>
+                            <span data-en="Converter" data-zh="单位换算">Converter</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Language Toggle -->
+                <div class="ms-auto">
+                    <button class="btn btn-outline-light btn-sm" id="langToggle">
+                        <i class="fas fa-language me-1"></i>
+                        <span id="langText">中文</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="mt-5 pt-4">
+        <!-- Hero Section -->
+        <section id="home" class="bg-light py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-3">
+                            <span data-en="Complete Health Calculator" data-zh="全功能健康计算器">Complete Health Calculator</span>
+                        </h1>
+                        <p class="lead mb-4">
+                            <span data-en="Comprehensive health metrics calculation with 50+ medical endpoints. Get instant health insights with professional interpretations." data-zh="基于50+医学端点的全面健康指标计算。获取即时健康洞察和专业解读。">
+                                Comprehensive health metrics calculation with 50+ medical endpoints. Get instant health insights with professional interpretations.
+                            </span>
+                        </p>
+                        <a href="#basic-metrics" class="btn btn-primary btn-lg">
+                            <span data-en="Start Calculating" data-zh="开始计算">Start Calculating</span>
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-center">
+                            <i class="fas fa-calculator text-primary" style="font-size: 8rem; opacity: 0.7;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Basic Metrics Section -->
+        <section id="basic-metrics" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-balance-scale text-primary me-2"></i>
+                            <span data-en="Basic Body Metrics" data-zh="基础身体指标">Basic Body Metrics</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row g-4" id="basic-metrics-cards">
+                    <!-- BMI Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-weight me-2"></i>
+                                    <span data-en="BMI Calculator" data-zh="BMI计算器">BMI Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="bmi-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmi-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bmi-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmi-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bmi-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate BMI" data-zh="计算BMI">Calculate BMI</span>
+                                    </button>
+                                </form>
+                                <div id="bmi-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Body Fat Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-percentage me-2"></i>
+                                    <span data-en="Body Fat Percentage" data-zh="体脂率计算">Body Fat Percentage</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="bodyfat-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bf-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bf-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bf-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="bf-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bf-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bf-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bf-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bf-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bf-waist" class="form-label">
+                                                <span data-en="Waist (cm)" data-zh="腰围 (cm)">Waist (cm)</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="bf-waist" min="50" max="150" step="0.1">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Body Fat" data-zh="计算体脂率">Calculate Body Fat</span>
+                                    </button>
+                                </form>
+                                <div id="bodyfat-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BMR Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-fire me-2"></i>
+                                    <span data-en="BMR Calculator" data-zh="基础代谢计算">BMR Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="bmr-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmr-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bmr-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmr-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="bmr-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmr-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bmr-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bmr-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bmr-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning text-dark">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate BMR" data-zh="计算BMR">Calculate BMR</span>
+                                    </button>
+                                </form>
+                                <div id="bmr-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ideal Weight Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-target me-2"></i>
+                                    <span data-en="Ideal Weight" data-zh="理想体重">Ideal Weight</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="ideal-weight-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="iw-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="iw-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="iw-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="iw-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="iw-current-weight" class="form-label">
+                                                <span data-en="Current Weight (kg)" data-zh="当前体重 (kg)">Current Weight (kg)</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="iw-current-weight" min="30" max="300" step="0.1">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Ideal Weight" data-zh="计算理想体重">Calculate Ideal Weight</span>
+                                    </button>
+                                </form>
+                                <div id="ideal-weight-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading placeholder for other sections -->
+        <section id="cardiovascular" class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-heart text-danger me-2"></i>
+                            <span data-en="Cardiovascular Health" data-zh="心血管健康">Cardiovascular Health</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- QTc Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-heartbeat me-2"></i>
+                                    <span data-en="QTc Calculator" data-zh="QTc间期计算">QTc Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="qtc-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="qtc-qt" class="form-label">
+                                                <span data-en="QT Interval (ms)" data-zh="QT间期 (ms)">QT Interval (ms)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="qtc-qt" min="200" max="800" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="qtc-hr" class="form-label">
+                                                <span data-en="Heart Rate (bpm)" data-zh="心率 (次/分)">Heart Rate (bpm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="qtc-hr" min="40" max="200" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate QTc" data-zh="计算QTc">Calculate QTc</span>
+                                    </button>
+                                </form>
+                                <div id="qtc-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABI Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-stethoscope me-2"></i>
+                                    <span data-en="ABI Calculator" data-zh="踝肱指数计算">ABI Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="abi-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="abi-ankle" class="form-label">
+                                                <span data-en="Ankle Pressure (mmHg)" data-zh="踝部收缩压 (mmHg)">Ankle Pressure (mmHg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="abi-ankle" min="50" max="300" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="abi-brachial" class="form-label">
+                                                <span data-en="Brachial Pressure (mmHg)" data-zh="肱动脉收缩压 (mmHg)">Brachial Pressure (mmHg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="abi-brachial" min="80" max="250" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning text-dark">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate ABI" data-zh="计算ABI">Calculate ABI</span>
+                                    </button>
+                                </form>
+                                <div id="abi-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6MWT Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-walking me-2"></i>
+                                    <span data-en="6-Minute Walk Test" data-zh="6分钟步行测试">6-Minute Walk Test</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="6mwt-form">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3">
+                                            <label for="mwt-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="mwt-age" min="18" max="100" required>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="mwt-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="mwt-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label for="mwt-distance" class="form-label">
+                                                <span data-en="Distance (m)" data-zh="步行距离 (m)">Distance (m)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="mwt-distance" min="100" max="1000" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate 6MWT" data-zh="计算6MWT">Calculate 6MWT</span>
+                                    </button>
+                                </form>
+                                <div id="6mwt-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diabetes Risk Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-line me-2"></i>
+                                    <span data-en="Diabetes Risk" data-zh="糖尿病风险">Diabetes Risk</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="diabetes-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="diab-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="diab-age" min="18" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="diab-bmi" class="form-label">
+                                                <span data-en="BMI" data-zh="BMI">BMI</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="diab-bmi" min="15" max="50" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="diab-sbp" class="form-label">
+                                                <span data-en="Systolic BP (mmHg)" data-zh="收缩压 (mmHg)">Systolic BP (mmHg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="diab-sbp" min="80" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="diab-family" class="form-label">
+                                                <span data-en="Family History" data-zh="家族史">Family History</span> *
+                                            </label>
+                                            <select class="form-select" id="diab-family" required>
+                                                <option value="">Choose...</option>
+                                                <option value="yes" data-en="Yes" data-zh="有">Yes</option>
+                                                <option value="no" data-en="No" data-zh="无">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Risk" data-zh="计算风险">Calculate Risk</span>
+                                    </button>
+                                </form>
+                                <div id="diabetes-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metabolism" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-fire text-warning me-2"></i>
+                            <span data-en="Metabolism & Energy" data-zh="代谢与能量">Metabolism & Energy</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- TDEE Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-running me-2"></i>
+                                    <span data-en="TDEE Calculator" data-zh="每日总能耗计算">TDEE Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="tdee-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tdee-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="tdee-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tdee-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="tdee-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tdee-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="tdee-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tdee-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="tdee-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="tdee-activity" class="form-label">
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span> *
+                                            </label>
+                                            <select class="form-select" id="tdee-activity" required>
+                                                <option value="">Choose...</option>
+                                                <option value="sedentary" data-en="Sedentary (little/no exercise)" data-zh="久坐（很少运动）">Sedentary</option>
+                                                <option value="lightly_active" data-en="Lightly Active (light exercise)" data-zh="轻度活跃（轻度运动）">Lightly Active</option>
+                                                <option value="moderately_active" data-en="Moderately Active (moderate exercise)" data-zh="中度活跃（中等运动）">Moderately Active</option>
+                                                <option value="very_active" data-en="Very Active (hard exercise)" data-zh="高度活跃（高强度运动）">Very Active</option>
+                                                <option value="extra_active" data-en="Extra Active (very hard exercise)" data-zh="极度活跃（极高强度运动）">Extra Active</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning text-dark">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate TDEE" data-zh="计算TDEE">Calculate TDEE</span>
+                                    </button>
+                                </form>
+                                <div id="tdee-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Calories Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-balance-scale-right me-2"></i>
+                                    <span data-en="Maintenance Calories" data-zh="维持热量计算">Maintenance Calories</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="maintenance-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mc-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="mc-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mc-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="mc-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mc-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="mc-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="mc-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="mc-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="mc-activity" class="form-label">
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span> *
+                                            </label>
+                                            <select class="form-select" id="mc-activity" required>
+                                                <option value="">Choose...</option>
+                                                <option value="sedentary" data-en="Sedentary" data-zh="久坐">Sedentary</option>
+                                                <option value="lightly_active" data-en="Lightly Active" data-zh="轻度活跃">Lightly Active</option>
+                                                <option value="moderately_active" data-en="Moderately Active" data-zh="中度活跃">Moderately Active</option>
+                                                <option value="very_active" data-en="Very Active" data-zh="高度活跃">Very Active</option>
+                                                <option value="extra_active" data-en="Extra Active" data-zh="极度活跃">Extra Active</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Maintenance" data-zh="计算维持热量">Calculate Maintenance</span>
+                                    </button>
+                                </form>
+                                <div id="maintenance-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LBM Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-dumbbell me-2"></i>
+                                    <span data-en="Lean Body Mass" data-zh="瘦体重计算">Lean Body Mass</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="lbm-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lbm-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="lbm-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lbm-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="lbm-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="lbm-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="lbm-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate LBM" data-zh="计算瘦体重">Calculate LBM</span>
+                                    </button>
+                                </form>
+                                <div id="lbm-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BSA Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-secondary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-user-md me-2"></i>
+                                    <span data-en="Body Surface Area" data-zh="体表面积计算">Body Surface Area</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="bsa-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bsa-height" class="form-label">
+                                                <span data-en="Height (cm)" data-zh="身高 (cm)">Height (cm)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bsa-height" min="100" max="250" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bsa-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bsa-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate BSA" data-zh="计算BSA">Calculate BSA</span>
+                                    </button>
+                                </form>
+                                <div id="bsa-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="nutrition" class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-apple-alt text-success me-2"></i>
+                            <span data-en="Nutrition Planning" data-zh="营养规划">Nutrition Planning</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- Macronutrients Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-pie me-2"></i>
+                                    <span data-en="Macronutrients Calculator" data-zh="宏量营养素计算">Macronutrients Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="macro-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="macro-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="macro-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="macro-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="macro-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="macro-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="macro-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="macro-activity" class="form-label">
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span> *
+                                            </label>
+                                            <select class="form-select" id="macro-activity" required>
+                                                <option value="">Choose...</option>
+                                                <option value="sedentary" data-en="Sedentary" data-zh="久坐">Sedentary</option>
+                                                <option value="lightly_active" data-en="Lightly Active" data-zh="轻度活跃">Lightly Active</option>
+                                                <option value="moderately_active" data-en="Moderately Active" data-zh="中度活跃">Moderately Active</option>
+                                                <option value="very_active" data-en="Very Active" data-zh="高度活跃">Very Active</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="macro-goal" class="form-label">
+                                                <span data-en="Goal" data-zh="目标">Goal</span> *
+                                            </label>
+                                            <select class="form-select" id="macro-goal" required>
+                                                <option value="">Choose...</option>
+                                                <option value="lose_weight" data-en="Lose Weight" data-zh="减重">Lose Weight</option>
+                                                <option value="maintain" data-en="Maintain Weight" data-zh="维持体重">Maintain Weight</option>
+                                                <option value="gain_weight" data-en="Gain Weight" data-zh="增重">Gain Weight</option>
+                                                <option value="muscle_gain" data-en="Muscle Gain" data-zh="增肌">Muscle Gain</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Macros" data-zh="计算宏量营养素">Calculate Macros</span>
+                                    </button>
+                                </form>
+                                <div id="macro-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Protein Calculator Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-drumstick-bite me-2"></i>
+                                    <span data-en="Protein Calculator" data-zh="蛋白质计算">Protein Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="protein-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="protein-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="protein-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="protein-activity" class="form-label">
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span> *
+                                            </label>
+                                            <select class="form-select" id="protein-activity" required>
+                                                <option value="">Choose...</option>
+                                                <option value="sedentary" data-en="Sedentary" data-zh="久坐">Sedentary</option>
+                                                <option value="light" data-en="Light Exercise" data-zh="轻度运动">Light Exercise</option>
+                                                <option value="moderate" data-en="Moderate Exercise" data-zh="中度运动">Moderate Exercise</option>
+                                                <option value="intense" data-en="Intense Exercise" data-zh="高强度运动">Intense Exercise</option>
+                                                <option value="athlete" data-en="Athlete" data-zh="运动员">Athlete</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="protein-goal" class="form-label">
+                                                <span data-en="Goal" data-zh="目标">Goal</span> *
+                                            </label>
+                                            <select class="form-select" id="protein-goal" required>
+                                                <option value="">Choose...</option>
+                                                <option value="maintenance" data-en="Maintenance" data-zh="维持">Maintenance</option>
+                                                <option value="muscle_gain" data-en="Muscle Gain" data-zh="增肌">Muscle Gain</option>
+                                                <option value="fat_loss" data-en="Fat Loss" data-zh="减脂">Fat Loss</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning text-dark">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Protein" data-zh="计算蛋白质">Calculate Protein</span>
+                                    </button>
+                                </form>
+                                <div id="protein-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fiber Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-leaf me-2"></i>
+                                    <span data-en="Fiber Calculator" data-zh="膳食纤维计算">Fiber Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="fiber-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fiber-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="fiber-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fiber-gender" class="form-label">
+                                                <span data-en="Gender" data-zh="性别">Gender</span> *
+                                            </label>
+                                            <select class="form-select" id="fiber-gender" required>
+                                                <option value="">Choose...</option>
+                                                <option value="male" data-en="Male" data-zh="男性">Male</option>
+                                                <option value="female" data-en="Female" data-zh="女性">Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Fiber" data-zh="计算膳食纤维">Calculate Fiber</span>
+                                    </button>
+                                </form>
+                                <div id="fiber-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Water Intake Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-tint me-2"></i>
+                                    <span data-en="Water Intake Calculator" data-zh="水分摄入计算">Water Intake Calculator</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="water-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="water-weight" class="form-label">
+                                                <span data-en="Weight (kg)" data-zh="体重 (kg)">Weight (kg)</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="water-weight" min="30" max="300" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="water-activity" class="form-label">
+                                                <span data-en="Activity Level" data-zh="活动水平">Activity Level</span> *
+                                            </label>
+                                            <select class="form-select" id="water-activity" required>
+                                                <option value="">Choose...</option>
+                                                <option value="low" data-en="Low Activity" data-zh="低活动量">Low Activity</option>
+                                                <option value="moderate" data-en="Moderate Activity" data-zh="中度活动量">Moderate Activity</option>
+                                                <option value="high" data-en="High Activity" data-zh="高活动量">High Activity</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="water-climate" class="form-label">
+                                                <span data-en="Climate" data-zh="气候">Climate</span> *
+                                            </label>
+                                            <select class="form-select" id="water-climate" required>
+                                                <option value="">Choose...</option>
+                                                <option value="temperate" data-en="Temperate" data-zh="温带">Temperate</option>
+                                                <option value="hot" data-en="Hot" data-zh="热带">Hot</option>
+                                                <option value="humid" data-en="Hot & Humid" data-zh="热带潮湿">Hot & Humid</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Water Intake" data-zh="计算水分摄入">Calculate Water Intake</span>
+                                    </button>
+                                </form>
+                                <div id="water-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="converter" class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center mb-5">
+                            <i class="fas fa-exchange-alt text-info me-2"></i>
+                            <span data-en="Unit Converter" data-zh="单位换算">Unit Converter</span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <!-- Blood Sugar Converter Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-tint me-2"></i>
+                                    <span data-en="Blood Sugar Converter" data-zh="血糖单位换算">Blood Sugar Converter</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="blood-sugar-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bs-value" class="form-label">
+                                                <span data-en="Blood Sugar Value" data-zh="血糖值">Blood Sugar Value</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="bs-value" min="1" max="1000" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="bs-unit" class="form-label">
+                                                <span data-en="From Unit" data-zh="原单位">From Unit</span> *
+                                            </label>
+                                            <select class="form-select" id="bs-unit" required>
+                                                <option value="">Choose...</option>
+                                                <option value="mmol/L" data-en="mmol/L" data-zh="mmol/L">mmol/L</option>
+                                                <option value="mg/dL" data-en="mg/dL" data-zh="mg/dL">mg/dL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-exchange-alt me-1"></i>
+                                        <span data-en="Convert" data-zh="换算">Convert</span>
+                                    </button>
+                                </form>
+                                <div id="blood-sugar-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cholesterol Converter Card -->
+                    <div class="col-lg-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-pills me-2"></i>
+                                    <span data-en="Cholesterol Converter" data-zh="胆固醇单位换算">Cholesterol Converter</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="cholesterol-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="chol-value" class="form-label">
+                                                <span data-en="Cholesterol Value" data-zh="胆固醇值">Cholesterol Value</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="chol-value" min="1" max="1000" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="chol-unit" class="form-label">
+                                                <span data-en="From Unit" data-zh="原单位">From Unit</span> *
+                                            </label>
+                                            <select class="form-select" id="chol-unit" required>
+                                                <option value="">Choose...</option>
+                                                <option value="mmol/L" data-en="mmol/L" data-zh="mmol/L">mmol/L</option>
+                                                <option value="mg/dL" data-en="mg/dL" data-zh="mg/dL">mg/dL</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12 mb-3">
+                                            <label for="chol-type" class="form-label">
+                                                <span data-en="Cholesterol Type" data-zh="胆固醇类型">Cholesterol Type</span> *
+                                            </label>
+                                            <select class="form-select" id="chol-type" required>
+                                                <option value="">Choose...</option>
+                                                <option value="total" data-en="Total Cholesterol" data-zh="总胆固醇">Total Cholesterol</option>
+                                                <option value="hdl" data-en="HDL (Good)" data-zh="HDL(好胆固醇)">HDL (Good)</option>
+                                                <option value="ldl" data-en="LDL (Bad)" data-zh="LDL(坏胆固醇)">LDL (Bad)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-warning text-dark">
+                                        <i class="fas fa-exchange-alt me-1"></i>
+                                        <span data-en="Convert" data-zh="换算">Convert</span>
+                                    </button>
+                                </form>
+                                <div id="cholesterol-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heart Rate Zone Calculator Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-heartbeat me-2"></i>
+                                    <span data-en="Heart Rate Zones" data-zh="心率区间计算">Heart Rate Zones</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="hr-zone-form">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="hr-age" class="form-label">
+                                                <span data-en="Age" data-zh="年龄">Age</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="hr-age" min="10" max="100" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="hr-resting" class="form-label">
+                                                <span data-en="Resting HR (bpm)" data-zh="静息心率 (次/分)">Resting HR (bpm)</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="hr-resting" min="40" max="120" placeholder="60">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fas fa-calculator me-1"></i>
+                                        <span data-en="Calculate Zones" data-zh="计算区间">Calculate Zones</span>
+                                    </button>
+                                </form>
+                                <div id="hr-zone-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unit Weight Converter Card -->
+                    <div class="col-lg-6 mt-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-weight me-2"></i>
+                                    <span data-en="Weight & Height Converter" data-zh="身高体重单位换算">Weight & Height Converter</span>
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="unit-converter-form">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="conv-type" class="form-label">
+                                                <span data-en="Conversion Type" data-zh="换算类型">Conversion Type</span> *
+                                            </label>
+                                            <select class="form-select" id="conv-type" required>
+                                                <option value="">Choose...</option>
+                                                <option value="weight" data-en="Weight" data-zh="体重">Weight</option>
+                                                <option value="height" data-en="Height" data-zh="身高">Height</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="conv-value" class="form-label">
+                                                <span data-en="Value" data-zh="数值">Value</span> *
+                                            </label>
+                                            <input type="number" class="form-control" id="conv-value" min="0" step="0.1" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="conv-from-unit" class="form-label">
+                                                <span data-en="From Unit" data-zh="原单位">From Unit</span> *
+                                            </label>
+                                            <select class="form-select" id="conv-from-unit" required>
+                                                <option value="">Choose...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-exchange-alt me-1"></i>
+                                        <span data-en="Convert" data-zh="换算">Convert</span>
+                                    </button>
+                                </form>
+                                <div id="unit-converter-result" class="mt-3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <span data-en="Data Source: Health Calculator API" data-zh="数据来源：Health Calculator API">Data Source: Health Calculator API</span>
+                    </p>
+                    <small class="text-muted">
+                        <span data-en="For health reference only, not medical advice" data-zh="仅供健康参考，不构成医疗建议">For health reference only, not medical advice</span>
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="https://rapidapi.com/health-calculator-api/api/health-calculator-api" target="_blank" class="text-light text-decoration-none">
+                        <i class="fas fa-external-link-alt me-1"></i>
+                        <span data-en="API Documentation" data-zh="API文档">API Documentation</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
