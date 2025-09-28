@@ -290,7 +290,7 @@ const UserProfile = {
             statusDiv.innerHTML = `
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    填写档案信息后，所有计算器将自动填充您的数据，提高使用效率。
+                    After filling in your profile information, all calculators will automatically fill in your data to improve your efficiency.
                 </div>
             `;
         }
@@ -1018,6 +1018,64 @@ function init() {
     
     // 初始化单位转换选项
     handleUnitTypeChange();
+
+    // 绑定复制 USDT 地址按钮（如果存在）
+    const copyUsdtBtn = document.getElementById('copy-usdt');
+    if (copyUsdtBtn) {
+        copyUsdtBtn.addEventListener('click', async (e) => {
+            const addrEl = document.getElementById('usdt-address');
+            if (!addrEl) return;
+            const addr = addrEl.textContent.trim();
+            try {
+                await navigator.clipboard.writeText(addr);
+                const old = copyUsdtBtn.textContent;
+                copyUsdtBtn.textContent = '已复制';
+                copyUsdtBtn.classList.remove('btn-outline-primary');
+                copyUsdtBtn.classList.add('btn-success');
+                setTimeout(() => {
+                    copyUsdtBtn.textContent = old;
+                    copyUsdtBtn.classList.remove('btn-success');
+                    copyUsdtBtn.classList.add('btn-outline-primary');
+                }, 1500);
+            } catch (err) {
+                // 兼容回退
+                const ta = document.createElement('textarea');
+                ta.value = addr;
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy');
+                    const old = copyUsdtBtn.textContent;
+                    copyUsdtBtn.textContent = '已复制';
+                    setTimeout(() => { copyUsdtBtn.textContent = old; }, 1500);
+                } catch (e) {
+                    alert('请手动复制地址: ' + addr);
+                }
+                document.body.removeChild(ta);
+            }
+        });
+    }
+
+    // 绑定 donate-trigger 按钮，使用 Bootstrap modal 显示大图
+    const donateTriggers = document.querySelectorAll('.donate-trigger');
+    if (donateTriggers && donateTriggers.length) {
+        donateTriggers.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const img = btn.getAttribute('data-img');
+                const title = btn.getAttribute('data-title') || '';
+                const modalEl = document.getElementById('donateImageModal');
+                const modalImg = document.getElementById('donateImageModalImg');
+                const modalTitle = document.getElementById('donateImageModalLabel');
+                if (modalImg && modalEl) {
+                    modalImg.src = img;
+                    modalImg.alt = title;
+                    if (modalTitle) modalTitle.textContent = title;
+                    // 使用 Bootstrap 的 Modal API 打开
+                    const bsModal = new bootstrap.Modal(modalEl);
+                    bsModal.show();
+                }
+            });
+        });
+    }
 }
 
 // 档案管理函数
