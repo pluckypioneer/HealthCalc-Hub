@@ -1,5 +1,7 @@
 # HealthCalc Hub - 全功能健康计算器
 
+> English version available: [readme_en.md](readme_en.md)
+
 ## 🎆 项目简介
 
 HealthCalc Hub 是一个基于本地计算的全功能健康指标计算器，提供50+种专业医学计算功能。所有计算都在本地完成，无需依赖外部API，保证数据安全和隐私保护。
